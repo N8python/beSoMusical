@@ -1,0 +1,15 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+p {
+    color: gray;
+}
+
+.cursive {
+    font-family: cursive;
+}
+
+.text-white {
+    color: white !important;
+}

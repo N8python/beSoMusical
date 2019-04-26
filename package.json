@@ -1,0 +1,27 @@
+{
+    "name": "besomusical",
+    "version": "1.0.0",
+    "description": "Keep track of your students musical progess!",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server/index.js"
+    },
+    "keywords": [
+        "musical",
+        "be",
+        "so",
+        "music"
+    ],
+    "author": "Nathan Hammer Breslow",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "express": "^4.16.4",
+        "mongodb": "^3.0.2",
+        "socket.io": "^2.2.0"
+    },
+    "engines": {
+        "node": "10.13.0"
+    }
+}
