@@ -12,7 +12,7 @@ app.use(express.static(publicPath));
 app.use(bodyParser.urlencoded());
 let server = http.createServer(app);
 let io = socketIO(server);
-MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/beSoMusical", (err, client) => { mongoHandler(err, client, app, process.env.MONGODB_URI) });
+MongoClient.connect("mongodb://theguchi:bon123@ds149056.mlab.com:49056/heroku_hjzx516b" || "mongodb://localhost:27017/beSoMusical", (err, client) => { mongoHandler(err, client, app, process.env.MONGODB_URI) });
 
 
 module.exports.listen = port => {
