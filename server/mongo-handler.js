@@ -1,4 +1,4 @@
-module.exports = function(err, client, app) {
+module.exports = function(err, client, app, uri) {
     if (err) {
         return console.log("Unable to connect to server.");
     }
@@ -24,7 +24,7 @@ module.exports = function(err, client, app) {
             }
         }, err => {
             console.log(err);
-            res.send("Error: unable to access database. " + err);
+            res.send("Error: unable to access database. " + err + "." + `URI: ${uri}`);
         });
     });
     app.post("/log-in", (req, res) => {
