@@ -24,7 +24,7 @@ module.exports = function(err, client, app) {
             }
         }, err => {
             console.log(err);
-            res.send("Error: unable to access database.");
+            res.send("Error: unable to access database. " + err);
         });
     });
     app.post("/log-in", (req, res) => {
@@ -37,7 +37,7 @@ module.exports = function(err, client, app) {
                 res.send("User does not exist.")
             }, err => {
                 console.log(err);
-                res.send("Error: unable to access database.");
+                res.send("Error: unable to access database. " + err);
             });
     });
     //client.close();
