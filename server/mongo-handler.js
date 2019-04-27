@@ -3,7 +3,7 @@ module.exports = function(err, client, app, uri) {
         return console.log("Unable to connect to server.");
     }
     console.log("Connected to MongoDB server!");
-    const db = client.db("beSoMusical");
+    const db = client.db(process.env.PORT ? "heroku_hjzx516b" : "beSoMusical");
     const users = db.collection("Users");
     app.post("/sign-up", (req, res) => {
         users.find({ email: req.body.email }).toArray().then(docs => {
