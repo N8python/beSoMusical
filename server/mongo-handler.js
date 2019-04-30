@@ -28,17 +28,50 @@ module.exports = function(err, client, app, uri) {
         });
     });
     app.post("/log-in", (req, res) => {
-        console.log("THE POST HAPPENED!");
         users.find({ username: req.body.username, password: req.body.password })
             .toArray().then(docs => {
                 if (docs.length > 0) {
-                    return res.send("Login succesful!")
+                    return res.send("Login succesful!");
                 }
                 res.send("User does not exist.")
             }, err => {
-                console.log(err);
                 res.send("Error: unable to access database. " + err);
             });
+    });
+    app.post("/get-user-data", (req, res) => {
+        users.find({ username: req.body.username, password: req.body.password })
+            .toArray().then(docs => {
+                if (docs.length > 0) {
+                    return res.send({
+                        email: docs[0].email,
+                        type: docs[0].type,
+                        classes: docs[0].classes
+                    });
+                }
+                res.send("User does not exist.");
+            }, err => {
+                res.send("Error: unable to access database. " + err);
+            });
+    });
+    app.post("/create-class", (req, res) => {
+        const { className, username, password } = req.body;
+        users.find({ username, password }).toArray().then(docs => {
+            if (docs.length > 0) {
+                users.updateOne({
+                    username,
+                    password
+                }, {
+                    $push: {
+                        classes: className
+                    }
+                });
+                return res.send("Class added.");
+            } else {
+                res.send("User does not exist.");
+            }
+        }, err => {
+            res.send("Error: unable to access database. " + err);
+        })
     });
     //client.close();
 }
