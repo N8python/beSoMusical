@@ -30,9 +30,21 @@ module.exports = function(err, client, app, uri) {
                 "assignments.$[element].response": req.body.response
             }
         }, {
-            arrayFilters: [{ "element.name": req.body.assignmentName.slice(1) }]
+            arrayFilters: [{ "element.name": req.body.assignmentName }]
         });
         res.send("Response inserted!");
+    });
+    app.post("/delete-assignment", (req, res) => {
+        classes.updateOne({
+            className: req.body.className,
+        }, {
+            $pull: {
+                assignments: {
+                    name: req.body.assignmentName
+                }
+            }
+        });
+        res.send("Assignment deleted!");
     })
     app.post("/getClass", (req, res) => {
         users.find({ username: req.body.username }).toArray().then(docs => {
@@ -47,7 +59,10 @@ module.exports = function(err, client, app, uri) {
                         if (_class.assignments) {
                             result += `<h2 class="w3-padding w3-text-gray">Assignments:</h2>`;
                             _class.assignments.forEach(asgn => {
-                                result += `<p class="w3-padding w3-text-gray">Assignment: ${asgn.name}${asgn.response ? ", Response: " + asgn.response : ", No Response Yet"}</p>`;
+                                result += `<p class="w3-padding w3-text-gray" assignment-name="${asgn.name}">Assignment: ${asgn.name}${asgn.response ? ", Response: " + asgn.response : ", No Response Yet"}</p>`;
+                                if (asgn.response && user.type === "Teacher") {
+                                    result += `<button class="w3-padding w3-margin w3-round w3-red w3-btn text-white">Delete Assignment</button>`;
+                                }
                                 result += `${ (user.type === "Student") ? "<button class=\"w3-margin-left text-white w3-blue w3-btn w3-round\">Answer Assignment</button>" : ""}`;
                             });
                         }
