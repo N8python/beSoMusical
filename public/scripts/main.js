@@ -4,6 +4,7 @@ import signUp from "./sign-up.js";
 import logIn from "./log-in.js";
 import logOut from "./log-out.js";
 import getUserData from "./get-user-data.js";
+import loadDashboard from "./load-dashboard.js";
 const dashboard = $("#dashboard");
 let user = {
     email: null,
@@ -16,9 +17,7 @@ if (localStorage.loggedIn !== "true") {
         $("#log-in").click(logIn);
     });
 } else {
-    dashboard.load(htmlPath("dashboard.html"), () => {
-        fufill(dashboard)
-        getUserData(dashboard, user);
-        $("#log-out").click(logOut);
-    });
+    loadDashboard(dashboard, user);
 }
+
+export { user, dashboard };
