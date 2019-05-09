@@ -16,10 +16,15 @@
     "author": "Nathan Hammer Breslow",
     "license": "MIT",
     "dependencies": {
+        "@types/mongodb": "^3.1.26",
         "body-parser": "^1.18.3",
         "express": "^4.16.4",
         "mongodb": "^3.0.2",
         "socket.io": "^2.2.0"
+    },
+    "devDependencies": {
+        "@types/jquery": "^3.3.29",
+        "@types/mongodb": "^3.1.26"
     },
     "engines": {
         "node": "10.13.0"
