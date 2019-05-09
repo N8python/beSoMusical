@@ -59,7 +59,7 @@ module.exports = function(err, client, app, uri) {
                         if (_class.assignments) {
                             result += `<h2 class="w3-padding w3-text-gray">Assignments:</h2>`;
                             _class.assignments.forEach(asgn => {
-                                result += `<p class="w3-padding w3-text-gray" assignment-name="${asgn.name}">Assignment: ${asgn.name}${asgn.response ? ", Response: " + asgn.response : ", No Response Yet"}</p>`;
+                                result += `<p class="w3-padding w3-text-gray" assignment-name="${asgn.name}">Assignment: "${asgn.name}"${asgn.response ? ", Response: \"" + asgn.response + "\"" : ", No Response Yet"}</p>`;
                                 if (asgn.response && user.type === "Teacher") {
                                     result += `<button class="w3-padding w3-margin w3-round w3-red w3-btn text-white">Delete Assignment</button>`;
                                 }
