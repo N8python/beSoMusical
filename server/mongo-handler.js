@@ -58,9 +58,25 @@ module.exports = function(err, client, app, uri) {
                         });
                         if (_class.assignments) {
                             result += `<h2 class="w3-padding w3-text-gray">Assignments:</h2>`;
+                            _class.assignments.sort((a, b) => {
+                                a = a.name;
+                                b = b.name;
+                                const ISOregex = /^(\d{4})-(\d{2})-(\d{2})/;
+                                const areISO = ISOregex.test(a) && ISOregex.test(b);
+                                if (areISO) {
+                                    const aMatches = [...ISOregex.exec(a)].slice(1).map(match => Number(match));
+                                    const bMatches = [...ISOregex.exec(b)].slice(1).map(match => Number(match));
+                                    const aBigger = aMatches[0] > bMatches[0] || aMatches[1] > bMatches[1] || aMatches[2] > bMatches[2];
+                                    if (aBigger) {
+                                        return 1;
+                                    }
+                                    return -1;
+                                }
+                                return 0;
+                            });
                             _class.assignments.forEach(asgn => {
-                                result += `<p class="w3-padding w3-text-gray" assignment-name="${asgn.name}">Assignment: "${asgn.name}"${asgn.response ? ", Response: \"" + asgn.response + "\"" : ", No Response Yet"}</p>`;
-                                if (asgn.response && user.type === "Teacher") {
+                                result += `<p class="w3-padding w3-text-gray" assignment-name="${asgn.name}">${asgn.name} - ${asgn.response ? "Response: \"" + asgn.response + "\"" : "No Response Yet"}</p>`;
+                                if (user.type === "Teacher") {
                                     result += `<button class="w3-padding w3-margin w3-round w3-red w3-btn text-white">Delete Assignment</button>`;
                                 }
                                 result += `${ (user.type === "Student") ? "<button class=\"w3-margin-left text-white w3-blue w3-btn w3-round\">Answer Assignment</button>" : ""}`;

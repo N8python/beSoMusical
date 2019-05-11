@@ -4,6 +4,7 @@ import openModal from "./modal-opener.js";
 import addAssignment from "./add-assignment.js";
 import answerAssignment from "./answer-assignment.js";
 import deleteAssignment from "./delete-assignment.js";
+import assignWeekly from "./assign-weekly.js";
 export default ({
     data,
     className
@@ -47,6 +48,9 @@ export default ({
                 assignmentName
             });
         });
+        $(`button:contains("Assign Week of Assignments")`).click(() => {
+            assignWeekly(className);
+        })
     } else {
         return swal({
             title: "Error",

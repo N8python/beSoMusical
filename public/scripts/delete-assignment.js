@@ -18,7 +18,7 @@ export default ({
                 loaClass(className);
                 swal({
                     title: "Assignment Deleted",
-                    text: `The ${assignmentName} has been removed from ${className}`,
+                    text: `The ${assignmentName} has been removed from ${className}.`,
                     icon: "success"
                 });
             });
