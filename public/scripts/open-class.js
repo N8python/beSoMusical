@@ -5,6 +5,8 @@ import addAssignment from "./add-assignment.js";
 import answerAssignment from "./answer-assignment.js";
 import deleteAssignment from "./delete-assignment.js";
 import assignWeekly from "./assign-weekly.js";
+import addPiece from "./add-piece.js";
+import updateClass from "./update-class.js";
 export default ({
     data,
     className
@@ -50,6 +52,12 @@ export default ({
         });
         $(`button:contains("Assign Week of Assignments")`).click(() => {
             assignWeekly(className);
+        });
+        $(`button:contains("Add Piece")`).click(() => {
+            addPiece(className);
+        });
+        $(".progress").click(function(e) {
+            updateClass(e, className, this);
         })
     } else {
         return swal({

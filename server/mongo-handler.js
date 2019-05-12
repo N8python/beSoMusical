@@ -22,6 +22,31 @@ module.exports = function(err, client, app, uri) {
         });
         res.send("Assignment added.");
     });
+    app.post("/create-piece", (req, res) => {
+        classes.updateOne({
+            className: req.body.className
+        }, {
+            $push: {
+                pieces: {
+                    name: req.body.pieceName,
+                    progress: 0
+                }
+            }
+        });
+        res.send("Piece added.");
+    });
+    app.post("/update-piece", (req, res) => {
+        classes.updateOne({
+            className: req.body.className
+        }, {
+            $set: {
+                "pieces.$[element].progress": Math.ceil(req.body.progress)
+            }
+        }, {
+            arrayFilters: [{ "element.name": req.body.pieceName }]
+        });
+        res.send("Piece updated.");
+    })
     app.post("/respond-to-assignment", (req, res) => {
         classes.updateOne({
             className: req.body.className
@@ -56,6 +81,14 @@ module.exports = function(err, client, app, uri) {
                         let result = data.toString().replace(/\$\{([^}]+)\}/gs, (_, p1) => {
                             return eval(p1);
                         });
+                        if (_class.pieces) {
+                            result += `<h2 class="w3-padding w3-text-gray">Pieces:</h2>`;
+                            _class.pieces.forEach(piece => {
+                                result += `<div class="progress w3-gray w3-margin">
+                                <div class="progress-bar bg-info" piecename="${piece.name}" style="width:${piece.progress}%;">${piece.name} : ${piece.progress}% Progress</div>
+                                </div>`;
+                            });
+                        }
                         if (_class.assignments) {
                             result += `<h2 class="w3-padding w3-text-gray">Assignments:</h2>`;
                             _class.assignments.sort((a, b) => {
