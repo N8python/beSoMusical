@@ -46,6 +46,18 @@ module.exports = function(err, client, app, uri) {
             arrayFilters: [{ "element.name": req.body.pieceName }]
         });
         res.send("Piece updated.");
+    });
+    app.post("/delete-piece", (req, res) => {
+        classes.updateOne({
+            className: req.body.className
+        }, {
+            $pull: {
+                pieces: {
+                    name: req.body.pieceName
+                }
+            }
+        });
+        res.send("Piece removed.");
     })
     app.post("/respond-to-assignment", (req, res) => {
         classes.updateOne({
@@ -87,6 +99,9 @@ module.exports = function(err, client, app, uri) {
                                 result += `<div class="progress w3-gray w3-margin">
                                 <div class="progress-bar bg-info" piecename="${piece.name}" style="width:${piece.progress}%;">${piece.name} : ${piece.progress}% Progress</div>
                                 </div>`;
+                                if (user.type === "Teacher") {
+                                    result += `<button class="w3-padding w3-margin w3-round w3-red w3-btn text-white">Delete Piece</button>`;
+                                }
                             });
                         }
                         if (_class.assignments) {

@@ -7,6 +7,7 @@ import deleteAssignment from "./delete-assignment.js";
 import assignWeekly from "./assign-weekly.js";
 import addPiece from "./add-piece.js";
 import updateClass from "./update-class.js";
+import deletePiece from "./delete-piece.js";
 export default ({
     data,
     className
@@ -56,6 +57,9 @@ export default ({
         $(`button:contains("Add Piece")`).click(() => {
             addPiece(className);
         });
+        $(`button:contains("Delete Piece")`).click(function() {
+            deletePiece(className, this);
+        })
         $(".progress").click(function(e) {
             updateClass(e, className, this);
         })
