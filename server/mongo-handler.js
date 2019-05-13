@@ -9,6 +9,19 @@ module.exports = function(err, client, app, uri) {
     const db = client.db(process.env.PORT ? "heroku_hjzx516b" : "beSoMusical");
     const users = db.collection("Users");
     const classes = db.collection("Classes");
+    app.post("/add-message", (req, res) => {
+        classes.updateOne({
+            className: req.body.className
+        }, {
+            $push: {
+                messages: {
+                    message: req.body.message,
+                    username: req.body.username
+                }
+            }
+        });
+        res.send("Message added.");
+    });
     app.post("/create-assignment", (req, res) => {
         classes.updateOne({
             className: req.body.className
@@ -120,7 +133,7 @@ module.exports = function(err, client, app, uri) {
                                     }
                                     return -1;
                                 }
-                                return 0;
+                                return 1;
                             });
                             _class.assignments.forEach(asgn => {
                                 result += `<p class="w3-padding w3-text-gray" assignment-name="${asgn.name}">${asgn.name} - ${asgn.response ? "Response: \"" + asgn.response + "\"" : "No Response Yet"}</p>`;
@@ -130,6 +143,22 @@ module.exports = function(err, client, app, uri) {
                                 result += `${ (user.type === "Student") ? "<button class=\"w3-margin-left text-white w3-blue w3-btn w3-round\">Answer Assignment</button>" : ""}`;
                             });
                         }
+                        let messages = "";
+                        if (_class.messages) {
+                            _class.messages.forEach(message => {
+                                messages += `<p ${(message.username === user.username) ? "class=\"w3-right\"" : ""}>${message.message.replace(user.username, "You")}</p>`;
+                            });
+                        }
+                        result += `
+                            <section class="w3-padding w3-aqua w3-margin w3-round-xlarge scrollToBottom" style="height: 200px; overflow:scroll;">
+                                <h3>Class Chat:</h3>
+                                <div class="messages">${messages}</div>
+                                <script>
+                                    $(".scrollToBottom").scrollTop($(".scrollToBottom").prop("scrollHeight"));
+                                </script>
+                            </section>
+                            <input class="w3-margin w3-input w3-animate-input" id="enterMessage" style="width:30%" placeholder="Say something...">
+                        `;
                         res.send(result);
                     });
                 } else {

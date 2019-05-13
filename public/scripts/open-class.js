@@ -8,6 +8,9 @@ import assignWeekly from "./assign-weekly.js";
 import addPiece from "./add-piece.js";
 import updateClass from "./update-class.js";
 import deletePiece from "./delete-piece.js";
+import addMessage from "./add-message.js";
+import loaClass from "./load-and-open-class.js";
+''
 export default ({
     data,
     className
@@ -62,7 +65,10 @@ export default ({
         })
         $(".progress").click(function(e) {
             updateClass(e, className, this);
-        })
+        });
+        $("#enterMessage").keydown(e => {
+            addMessage(e, className);
+        });
     } else {
         return swal({
             title: "Error",

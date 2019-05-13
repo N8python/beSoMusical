@@ -19,5 +19,4 @@ if (localStorage.loggedIn !== "true") {
 } else {
     loadDashboard(dashboard, user);
 }
-
 export { user, dashboard };

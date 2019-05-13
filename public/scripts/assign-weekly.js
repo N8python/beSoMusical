@@ -1,6 +1,7 @@
 import addToDate from "./increment-date.js";
 import openModal from "./modal-opener.js";
 import htmlPath from "./html-getter.js";
+import addAssignment from "./add-assignment.js";
 export default className => {
     openModal(htmlPath("assign-week.html"), modal => {
         $("#addDayAssignment").click(e => {
