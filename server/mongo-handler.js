@@ -146,7 +146,7 @@ module.exports = function(err, client, app, uri) {
                         let messages = "";
                         if (_class.messages) {
                             _class.messages.forEach(message => {
-                                messages += `<p ${(message.username === user.username) ? "class=\"w3-right\"" : ""}>${message.message.replace(user.username, "You")}</p>`;
+                                messages += `<p>${message.message.replace(user.username, "You")}</p>`;
                             });
                         }
                         result += `
