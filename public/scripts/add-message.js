@@ -7,7 +7,7 @@ export default (e, className) => {
             username: localStorage.username,
             message
         }, _ => {
-            loadAndOpenClass(className);
+            loaClass(className);
         });
     }
 }
