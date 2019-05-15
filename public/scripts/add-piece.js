@@ -9,9 +9,14 @@ export default className => {
                 className,
                 pieceName: safeify($(`input[name="piecename"]`).val())
             }, _ => {
+                modal.css("display", "none");
+                swal({
+                    title: "Piece created",
+                    text: "The piece has been added.",
+                    icon: "success"
+                })
                 loaClass(className);
             });
-            modal.css("display", "none");
         });
     });
 }

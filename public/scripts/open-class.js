@@ -23,10 +23,10 @@ export default ({
         $(`button:contains("Add Assignment")`).click(() => {
             openModal(htmlPath("assignment-form.html"), modal => {
                 $(`#createAssignment`).click(() => {
-                    modal.css("display", "none");
                     addAssignment({
                         className,
-                        assignmentName: safeify($(`[name="assignmentname"`).val())
+                        assignmentName: safeify($(`[name="assignmentname"]`).val()),
+                        modal
                     });
                 });
             });
@@ -40,9 +40,9 @@ export default ({
                     answerAssignment({
                         className,
                         assignmentName,
-                        response
+                        response,
+                        modal
                     });
-                    modal.css("display", "none");
                 })
             });
         });
