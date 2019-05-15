@@ -22,7 +22,7 @@ export default ({
         });
         $(`button:contains("Add Assignment")`).click(() => {
             openModal(htmlPath("assignment-form.html"), modal => {
-                $(`button:contains("Create Assignment")`).click(() => {
+                $(`#createAssignment`).click(() => {
                     modal.css("display", "none");
                     addAssignment({
                         className,
