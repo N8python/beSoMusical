@@ -6,7 +6,7 @@ export default (path, callback = () => {}) => {
         container.append(data);
         modal.append(container);
         $(window).click(() => {
-            if (!container[0].contains(event.target)) {
+            if (!container[0].contains(event.target) && !(e.target.tagName === "BUTTON")) {
                 modal.css("display", "none");
                 modal.remove();
             }
