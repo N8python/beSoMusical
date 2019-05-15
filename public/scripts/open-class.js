@@ -10,7 +10,7 @@ import updateClass from "./update-class.js";
 import deletePiece from "./delete-piece.js";
 import addMessage from "./add-message.js";
 import loaClass from "./load-and-open-class.js";
-''
+import safeify from "./safeify.js";
 export default ({
     data,
     className
@@ -26,7 +26,7 @@ export default ({
                     modal.css("display", "none");
                     addAssignment({
                         className,
-                        assignmentName: $(`[name="assignmentname"`).val()
+                        assignmentName: safeify($(`[name="assignmentname"`).val())
                     });
                 });
             });
@@ -36,7 +36,7 @@ export default ({
             const assignmentName = assignment.attr("assignment-name");
             openModal(htmlPath("answer-assignment.html"), modal => {
                 $(`button:contains("Answer")`).click(() => {
-                    const response = $(`input[name="response"]`).val();
+                    const response = safeify($(`input[name="response"]`).val());
                     answerAssignment({
                         className,
                         assignmentName,

@@ -2,10 +2,11 @@ import addToDate from "./increment-date.js";
 import openModal from "./modal-opener.js";
 import htmlPath from "./html-getter.js";
 import addAssignment from "./add-assignment.js";
+import safeify from "./safeify.js";
 export default className => {
     openModal(htmlPath("assign-week.html"), modal => {
         $("#addDayAssignment").click(e => {
-            const dateVal = $(`input[type="date"]`).val();
+            const dateVal = safeify($(`input[type="date"]`).val());
             if (!dateVal) {
                 return swal({
                     title: "Enter a Date",
@@ -14,8 +15,8 @@ export default className => {
                 });
             }
             const numInput = $(`input[type="number"]`)
-            const incrementVal = Number(numInput.val());
-            numInput.val(Number(numInput.val()) + 1);
+            const incrementVal = Number(safeify(numInput.val()));
+            numInput.val(safeify(numInput.val()) + 1);
             $("#inputs").append(`
                 <span iterable>${addToDate(dateVal, incrementVal - 1)} : <input type="text" placeholder="To do on ${addToDate(dateVal, incrementVal - 1)}?"></span>
                 <br>
@@ -29,7 +30,7 @@ export default className => {
             $("span[iterable]").each((_, element) => {
                 const input = $(element).find("input");
                 const text = $(element).contents().get(0).nodeValue;
-                const assignmentName = text + input.val();
+                const assignmentName = text + safeify(input.val());
                 setTimeout(() => {
                     addAssignment({
                         className,
