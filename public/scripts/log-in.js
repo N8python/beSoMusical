@@ -1,12 +1,13 @@
 import htmlPath from "./html-getter.js";
 import openModal from "./modal-opener.js";
+import safeify from "./safeify.js";
 export default () => {
     openModal(htmlPath("log-in.html"), modal => {
         $(`button:contains("Log In")`).click(e => {
             e.preventDefault();
             const { username, password } = {
-                username: $(`input[name="username"]`).val(),
-                password: $(`input[type="password"]`).val(),
+                username: safeify($(`input[name="username"]`).val()),
+                password: safeify($(`input[type="password"]`).val()),
             }
             console.log(username, password)
             $.ajax({

@@ -1,7 +1,8 @@
 import { dashboard, user } from "./main.js";
 import loadDashboard from "./load-dashboard.js";
+import safeify from "./safeify.js";
 export default () => {
-    const className = $(`input[name="classname"]`).val();
+    const className = safeify($(`input[name="classname"]`).val());
     $.post("/create-class", {
         className,
         username: localStorage.username,
