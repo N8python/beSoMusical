@@ -29,7 +29,8 @@ module.exports = function(err, client, app, uri) {
             $push: {
                 assignments: {
                     name: req.body.assignmentName,
-                    response: ""
+                    response: "",
+                    checked: false
                 }
             }
         });
@@ -84,6 +85,31 @@ module.exports = function(err, client, app, uri) {
         });
         res.send("Response inserted!");
     });
+    app.post("/check-assignment", (req, res) => {
+        classes.updateOne({
+            className: req.body.className
+        }, {
+            $set: {
+                "assignments.$[element].checked": true
+            }
+        }, {
+            arrayFilters: [{ "element.name": req.body.assignmentName }]
+        });
+        res.send("Checked.");
+    });
+    app.post("/uncheck-assignment", (req, res) => {
+        console.log(req.body.className, req.body.assignmentName);
+        classes.updateOne({
+            className: req.body.className
+        }, {
+            $set: {
+                "assignments.$[element].checked": false
+            }
+        }, {
+            arrayFilters: [{ "element.name": req.body.assignmentName }]
+        });
+        res.send("Checked.");
+    });
     app.post("/delete-assignment", (req, res) => {
         classes.updateOne({
             className: req.body.className,
@@ -136,7 +162,8 @@ module.exports = function(err, client, app, uri) {
                                 return 1;
                             });
                             _class.assignments.forEach(asgn => {
-                                result += `<p class="w3-padding w3-text-gray" assignment-name="${asgn.name}">${asgn.name} - ${asgn.response ? "Response: \"" + asgn.response + "\"" : "No Response Yet"}</p>`;
+                                result += `<p class="w3-padding w3-text-gray" assignment-name="${asgn.name}">${asgn.name} - ${asgn.response ? "Response: \"" + asgn.response + "\"" : "No Response Yet"} 
+                                ${(user.type === "Student") ? "<input type=\"checkbox\" class=\"w3-check\"" + ((asgn.checked) ? " checked>" : ">") : ""} </p>`;
                                 if (user.type === "Teacher") {
                                     result += `<button class="w3-padding w3-margin w3-round w3-red w3-btn text-white">Delete Assignment</button>`;
                                 }

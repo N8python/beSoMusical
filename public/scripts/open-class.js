@@ -11,6 +11,7 @@ import deletePiece from "./delete-piece.js";
 import addMessage from "./add-message.js";
 import loaClass from "./load-and-open-class.js";
 import safeify from "./safeify.js";
+import checkAssignment from "./check-assignment.js";
 export default ({
     data,
     className
@@ -68,6 +69,9 @@ export default ({
         });
         $("#enterMessage").keydown(e => {
             addMessage(e, className);
+        });
+        $(`input[type="checkbox"]`).change(function(e) {
+            checkAssignment(className, this);
         });
     } else {
         return swal({
