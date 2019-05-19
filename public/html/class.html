@@ -1,5 +1,5 @@
 <section class="w3-padding">
-    <i class="w3-blue w3-xlarge fa fa-arrow-left w3-padding w3-round-large w3-btn"></i>
+    <i class="w3-xlarge w3-text-white fa fa-arrow-left w3-padding btn"></i>
     <h1><em>${_class.className}</em>:</h1>
     <p>Teacher: ${_class.teacher}</p>
     <p>Student: ${_class.student}</p>
@@ -8,8 +8,8 @@
     </div>
     <br> ${ (user.type === "Teacher") ? `
     <p>You can add assignments.</p>
-    <button class="w3-blue w3-btn text-white w3-round">Add Assignment</button>
-    <button class="w3-blue w3-btn text-white w3-round">Add Piece</button>
-    <button class="w3-green w3-btn text-white w3-round">Assign Week of Assignments</button> ` : `
+    <button class="btn text-white">Add Assignment</button>
+    <button class="btn text-white">Add Piece</button>
+    <button class="btn text-white">Assign Week of Assignments</button> ` : `
     <p>You can answer assignments.</p>` }
 </section>

@@ -133,18 +133,18 @@ module.exports = function(err, client, app, uri) {
                             return eval(p1);
                         });
                         if (_class.pieces) {
-                            result += `<h2 class="w3-padding w3-text-gray">Pieces:</h2>`;
+                            result += `<h2 class="w3-padding w3-text-white">Pieces:</h2>`;
                             _class.pieces.forEach(piece => {
-                                result += `<div class="progress w3-gray w3-margin">
+                                result += `<div class="progress w3-grey w3-margin">
                                 <div class="progress-bar bg-info" piecename="${piece.name}" style="width:${piece.progress}%;">${piece.name} : ${piece.progress}% Progress</div>
                                 </div>`;
                                 if (user.type === "Teacher") {
-                                    result += `<button class="w3-padding w3-margin w3-round w3-red w3-btn text-white">Delete Piece</button>`;
+                                    result += `<button class="w3-padding w3-margin w3-red btn text-white">Delete Piece</button>`;
                                 }
                             });
                         }
                         if (_class.assignments) {
-                            result += `<h2 class="w3-padding w3-text-gray">Assignments:</h2>`;
+                            result += `<h2 class="w3-padding w3-text-white">Assignments:</h2>`;
                             _class.assignments.sort((a, b) => {
                                 a = a.name;
                                 b = b.name;
@@ -162,12 +162,12 @@ module.exports = function(err, client, app, uri) {
                                 return 1;
                             });
                             _class.assignments.forEach(asgn => {
-                                result += `<p class="w3-padding w3-text-gray" assignment-name="${asgn.name}">${asgn.name} - ${asgn.response ? "Response: \"" + asgn.response + "\"" : "No Response Yet"} 
-                                ${(user.type === "Student") ? "<input type=\"checkbox\" class=\"w3-check\"" + ((asgn.checked) ? " checked>" : ">") : ""} </p>`;
+                                result += `<p class="w3-padding w3-text-white" assignment-name="${asgn.name}">${asgn.name} - ${asgn.response ? "Response: \"" + asgn.response + "\"" : "No Response Yet"} 
+                                ${"<input type=\"checkbox\" class=\"w3-check\"" + ((asgn.checked) ? " checked>" : ">")} </p>`;
                                 if (user.type === "Teacher") {
-                                    result += `<button class="w3-padding w3-margin w3-round w3-red w3-btn text-white">Delete Assignment</button>`;
+                                    result += `<button class="w3-padding w3-margin btn text-white">Delete Assignment</button>`;
                                 }
-                                result += `${ (user.type === "Student") ? "<button class=\"w3-margin-left text-white w3-blue w3-btn w3-round\">Answer Assignment</button>" : ""}`;
+                                result += `${ (user.type === "Student") ? "<button class=\"w3-margin-left text-white btn\">Answer Assignment</button>" : ""}`;
                             });
                         }
                         let messages = "";
@@ -177,7 +177,7 @@ module.exports = function(err, client, app, uri) {
                             });
                         }
                         result += `
-                            <section class="w3-padding w3-aqua w3-margin w3-round-xlarge scrollToBottom" style="height: 200px; overflow:scroll;">
+                            <section class="w3-padding w3-indigo w3-margin w3-round-xlarge scrollToBottom" style="height: 200px; overflow:scroll;">
                                 <h3>Class Chat:</h3>
                                 <div class="messages">${messages}</div>
                                 <script>

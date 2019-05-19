@@ -1,19 +1,40 @@
 body {
     font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(white, teal) fixed;
 }
 
 h1 {
-    color: gray;
+    color: white;
+    font-family: inherit;
 }
 
 p {
-    color: gray;
+    color: white;
+    font-family: inherit;
 }
 
 .cursive {
     font-family: cursive;
+    font-size: 30px;
 }
 
 .text-white {
     color: white !important;
+}
+
+.btn {
+    border-radius: 30px;
+    padding-right: 16px;
+    padding-left: 16px;
+    transition-duration: 250ms;
+    background: blue;
+}
+
+.btn:hover {
+    background-color: white !important;
+    color: black !important;
+}
+
+.teal-grad {
+    background: linear-gradient(white, teal) fixed;
 }

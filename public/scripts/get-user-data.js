@@ -28,7 +28,7 @@ export default (dashboard, user) => {
         <p class="w3-padding">
            ${
                user.type === "Student"
-               ? "You are a student." + (user.classesJoined.length > 0) ? "" : "You can't do much until a teacher invites you to their class."
+               ? "You are a student." + (user.classesJoined.length === 0) ? "" : "You can't do much until a teacher invites you to their class."
                : "You are a teacher. You can create classes and invite students to join them."
             } 
         <p>
