@@ -38,3 +38,8 @@ p {
 .teal-grad {
     background: linear-gradient(white, teal) fixed;
 }
+
+.tab-content {
+    height: 300px;
+    overflow: scroll;
+}

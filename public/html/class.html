@@ -1,15 +1,36 @@
 <section class="w3-padding">
     <i class="w3-xlarge w3-text-white fa fa-arrow-left w3-padding btn"></i>
-    <h1><em>${_class.className}</em>:</h1>
-    <p>Teacher: ${_class.teacher}</p>
-    <p>Student: ${_class.student}</p>
-    <div class="w3-bar w3-blue">
-        <div class="w3-bar-item"> </div>
+    <h1><em>${_class.className}:</em></h1>
+    <div class="container" style="margin-left:0px;margin-right:0px; padding: 0px;">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#assignments">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#pieces">Pieces</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#chat">Chat</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#info-class">Info</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="assignments" class="container tab-pane fade w3-padding">
+                ${ (user.type === "Teacher") ? `<button class="btn text-white w3-margin">Add Assignment</button>
+                <button class="btn text-white w3-margin">Assign Week of Assignments</button> ` : ""} ${ assignmentText }
+            </div>
+            <div id="pieces" class="container tab-pane fade w3-padding">
+                ${ (user.type === "Teacher") ? ` <button class="btn text-white w3-margin">Add Piece</button>` : ""} ${ pieceText }
+            </div>
+            <div id="chat" class="container tab-pane fade w3-padding">
+                ${ classText }
+            </div>
+            <div id="info-class" class="container tab-pane fade w3-padding">
+                <p>Teacher: ${_class.teacher}</p>
+                <p>Student: ${_class.student}</p>
+            </div>
+        </div>
     </div>
-    <br> ${ (user.type === "Teacher") ? `
-    <p>You can add assignments.</p>
-    <button class="btn text-white">Add Assignment</button>
-    <button class="btn text-white">Add Piece</button>
-    <button class="btn text-white">Assign Week of Assignments</button> ` : `
-    <p>You can answer assignments.</p>` }
 </section>

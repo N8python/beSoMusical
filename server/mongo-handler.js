@@ -129,22 +129,21 @@ module.exports = function(err, client, app, uri) {
                 if (docs.length > 0) {
                     const _class = docs[0];
                     fs.readFile(publicPath + "/html/class.html", (err, data) => {
-                        let result = data.toString().replace(/\$\{([^}]+)\}/gs, (_, p1) => {
-                            return eval(p1);
-                        });
+                        let pieceText = "";
                         if (_class.pieces) {
-                            result += `<h2 class="w3-padding w3-text-white">Pieces:</h2>`;
+                            pieceText += `<h2 class="w3-padding w3-text-white">Pieces:</h2>`;
                             _class.pieces.forEach(piece => {
-                                result += `<div class="progress w3-grey w3-margin">
+                                pieceText += `<div class="progress w3-grey w3-margin">
                                 <div class="progress-bar bg-info" piecename="${piece.name}" style="width:${piece.progress}%;">${piece.name} : ${piece.progress}% Progress</div>
                                 </div>`;
                                 if (user.type === "Teacher") {
-                                    result += `<button class="w3-padding w3-margin w3-red btn text-white">Delete Piece</button>`;
+                                    pieceText += `<button class="w3-padding w3-margin w3-red btn text-white">Delete Piece</button>`;
                                 }
                             });
                         }
+                        let assignmentText = "";
                         if (_class.assignments) {
-                            result += `<h2 class="w3-padding w3-text-white">Assignments:</h2>`;
+                            assignmentText += `<h2 class="w3-padding w3-text-white">Assignments:</h2>`;
                             _class.assignments.sort((a, b) => {
                                 a = a.name;
                                 b = b.name;
@@ -162,30 +161,37 @@ module.exports = function(err, client, app, uri) {
                                 return 1;
                             });
                             _class.assignments.forEach(asgn => {
-                                result += `<p class="w3-padding w3-text-white" assignment-name="${asgn.name}">${asgn.name} - ${asgn.response ? "Response: \"" + asgn.response + "\"" : "No Response Yet"} 
+                                assignmentText += `<p class="w3-padding w3-text-white" assignment-name="${asgn.name}">${asgn.name} - ${asgn.response ? "Response: \"" + asgn.response + "\"" : "No Response Yet"} 
                                 ${"<input type=\"checkbox\" class=\"w3-check\"" + ((asgn.checked) ? " checked>" : ">")} </p>`;
                                 if (user.type === "Teacher") {
-                                    result += `<button class="w3-padding w3-margin btn text-white">Delete Assignment</button>`;
+                                    assignmentText += `<button class="w3-padding w3-margin btn text-white">Delete Assignment</button>`;
                                 }
-                                result += `${ (user.type === "Student") ? "<button class=\"w3-margin-left text-white btn\">Answer Assignment</button>" : ""}`;
+                                assignmentText += `${ (user.type === "Student") ? "<button class=\"w3-margin-left text-white btn\">Answer Assignment</button>" : ""}`;
                             });
                         }
                         let messages = "";
+                        let classText = "";
                         if (_class.messages) {
                             _class.messages.forEach(message => {
                                 messages += `<p>${message.message.replace(user.username, "You")}</p>`;
                             });
                         }
-                        result += `
+                        classText += `
                             <section class="w3-padding w3-indigo w3-margin w3-round-xlarge scrollToBottom" style="height: 200px; overflow:scroll;">
                                 <h3>Class Chat:</h3>
                                 <div class="messages">${messages}</div>
                                 <script>
-                                    $(".scrollToBottom").scrollTop($(".scrollToBottom").prop("scrollHeight"));
+                                    setTimeout(() => {
+                                        $(".scrollToBottom").scrollTop($(".scrollToBottom").prop("scrollHeight"));
+                                    }, 10);
                                 </script>
                             </section>
                             <input class="w3-margin w3-input w3-animate-input" id="enterMessage" style="width:30%" placeholder="Say something...">
                         `;
+                        let result = data.toString().replace(/\$\{([^}]+)\}/gs, (_, p1) => {
+                            return eval(p1);
+                        });
+                        result = result.replace(/undefined/g, "");
                         res.send(result);
                     });
                 } else {

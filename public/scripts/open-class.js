@@ -12,14 +12,22 @@ import addMessage from "./add-message.js";
 import loaClass from "./load-and-open-class.js";
 import safeify from "./safeify.js";
 import checkAssignment from "./check-assignment.js";
+let selectedTab;
 export default ({
     data,
     className
 }) => {
     if (!data.startsWith("Error:")) {
         dashboard.html(data);
+        if (selectedTab) {
+            $(`[href="${selectedTab}"]`).addClass("active");
+            $(selectedTab).addClass("active").addClass("show");
+        }
         $(".fa-arrow-left").click(() => {
             location = location.href;
+        });
+        $(".nav-link").click(function() {
+            selectedTab = $(this).attr("href");
         });
         $(`button:contains("Add Assignment")`).click(() => {
             openModal(htmlPath("assignment-form.html"), modal => {
