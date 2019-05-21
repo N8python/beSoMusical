@@ -12,6 +12,7 @@ export default ({
     }, data => {
         if (modal) {
             modal.css("display", "none");
+            modal.remove();
         }
         swal({
             title: "Response Sent!",

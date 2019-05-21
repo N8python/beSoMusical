@@ -5,11 +5,12 @@ import safeify from "./safeify.js";
 export default className => {
     openModal(htmlPath("addPiece.html"), modal => {
         $(`button:contains("Create Piece")`).click(() => {
+            console.log(safeify($(`input[name="piecename"]`).val()));
             $.post("/create-piece", {
                 className,
                 pieceName: safeify($(`input[name="piecename"]`).val())
             }, _ => {
-                modal.css("display", "none");
+                modal.remove();
                 swal({
                     title: "Piece created",
                     text: "The piece has been added.",

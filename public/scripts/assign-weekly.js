@@ -40,6 +40,7 @@ export default className => {
             });
             setTimeout(() => {
                 modal.css("display", "none");
+                modal.remove();
             }, 2000)
         });
     });

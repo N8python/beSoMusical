@@ -11,7 +11,7 @@ export default class extends messageWithButton {
                 openModal(htmlPath("invite-student.html"), modal => {
                     $(`button:contains("Send Invite")`).click(() => {
                         const studentUsername = $(`input[name="studentusername"]`).val();
-                        sendInvite(studentUsername, this.name);
+                        sendInvite(studentUsername, this.name, modal);
                     });
                 });
             });
