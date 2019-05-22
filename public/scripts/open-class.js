@@ -12,7 +12,7 @@ import addMessage from "./add-message.js";
 import loaClass from "./load-and-open-class.js";
 import safeify from "./safeify.js";
 import checkAssignment from "./check-assignment.js";
-let selectedTab;
+let selectedTab = "#assignments";
 export default ({
     data,
     className
@@ -71,6 +71,35 @@ export default ({
         });
         $(`button:contains("Delete Piece")`).click(function() {
             deletePiece(className, this);
+        })
+        $(`button:contains("Add Note")`).click(() => {
+            openModal(htmlPath("add-note.html"), modal => {
+                $(`button:contains("Submit Note")`).click(() => {
+                    $.post("/create-note", {
+                        className,
+                        title: safeify($("[title-note]").val()),
+                        text: safeify($("[text-note]").val()),
+                        experationDate: safeify($("[date-note]").val())
+                    }, data => {
+                        modal.remove();
+                        loaClass(className);
+                        swal({
+                            title: "Note added!",
+                            text: "Your note was added to the class.",
+                            icon: "success"
+                        });
+                    })
+                });
+            });
+        });
+        $("[deleteNote]").click(function() {
+            const noteName = $(this).parent().attr("title");
+            $.post("/delete-note", {
+                className,
+                noteName
+            }, _ => {
+                loaClass(className);
+            })
         })
         $(".progress").click(function(e) {
             updateClass(e, className, this);

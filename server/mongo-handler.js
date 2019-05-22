@@ -121,7 +121,33 @@ module.exports = function(err, client, app, uri) {
             }
         });
         res.send("Assignment deleted!");
-    })
+    });
+    app.post("/create-note", (req, res) => {
+        classes.updateOne({
+            className: req.body.className
+        }, {
+            $push: {
+                notes: {
+                    title: req.body.title,
+                    text: req.body.text,
+                    experationDate: req.body.experationDate
+                }
+            }
+        });
+        res.send("Note added!");
+    });
+    app.post("/delete-note", (req, res) => {
+        classes.updateOne({
+            className: req.body.className
+        }, {
+            $pull: {
+                notes: {
+                    title: req.body.noteName
+                }
+            }
+        });
+        res.send("Note added!");
+    });
     app.post("/getClass", (req, res) => {
         users.find({ username: req.body.username }).toArray().then(docs => {
             const user = docs[0];
@@ -188,6 +214,22 @@ module.exports = function(err, client, app, uri) {
                             </section>
                             <input class="w3-margin w3-input w3-animate-input" id="enterMessage" style="width:30%" placeholder="Say something...">
                         `;
+                        let noteText = `
+                            <h1>Notes:</h1>
+                        `;
+                        if (_class.notes) {
+                            _class.notes.forEach((note) => {
+                                if (!((new Date().getTime()) > (new Date(note.experationDate).getTime()))) {
+                                    noteText += `
+                                    <section class="w3-card w3-margin">
+                                        <h3 class="w3-indigo w3-padding" style="margin:0px" title="${note.title}">${note.title} <a class="w3-right" deleteNote>x</a></h3>
+                                        <p class="w3-grey w3-padding" style="margin:0px">${note.text}</p>
+                                        <p class="w3-blue w3-padding" style="margin:0px">Expiration Date: ${note.experationDate}</p>
+                                    </section>
+                                `
+                                }
+                            })
+                        }
                         let result = data.toString().replace(/\$\{([^}]+)\}/gs, (_, p1) => {
                             return eval(p1);
                         });

@@ -43,3 +43,7 @@ p {
     height: 350px;
     overflow: scroll;
 }
+
+[deleteNote]:hover {
+    cursor: pointer;
+}

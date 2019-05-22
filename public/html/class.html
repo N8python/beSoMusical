@@ -31,7 +31,7 @@
                 ${ classText }
             </div>
             <div id="notes" class="container tab-pane fade w3-padding">
-
+                ${ (user.type === "Teacher") ? `<button class="btn text-white w3-margin">Add Note</button>`: ""} ${ noteText }
             </div>
             <div id="info-class" class="container tab-pane fade w3-padding">
                 <p>Teacher: ${_class.teacher}</p>
