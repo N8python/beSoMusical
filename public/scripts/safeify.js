@@ -1,3 +1,3 @@
 export default str => {
-    return str.replace(/\<script\>/g, "").replace(/\<\/script\>/g, "")
+    return str.replace(/\<script\>/g, "").replace(/\<\/script\>/g, "").replace(/[()]/g, "");
 }
