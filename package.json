@@ -17,8 +17,8 @@
     "license": "MIT",
     "dependencies": {
         "@types/mongodb": "^3.1.26",
-        "body-parser": "^1.18.3",
-        "express": "^4.16.4",
+        "body-parser": "^1.19.2",
+        "express": "^4.17.3",
         "mongodb": "^3.1.13",
         "socket.io": "^2.2.0"
     },
